@@ -1,0 +1,14 @@
+.img-circle1 {
+    width: 100px;
+    height: 100px;
+    /* justify-content: center; */
+    /* margin: auto; */
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .username {
+    align-content: center;
+    margin: auto;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+  }

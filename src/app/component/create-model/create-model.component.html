@@ -1,0 +1,76 @@
+<app-menuadmin></app-menuadmin>
+<div class="content-wrapper">
+    <section class="content-header">
+        <ol class="breadrumb>">
+
+        </ol>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <p>create-model works!</p>
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Create Model</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form #form="ngForm" novalidate>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInput1">Room_number</label>
+                            <input type="text" class="form-control" name="Room_number" id="exampleInput1" ngModel
+                                #Room_number="ngModel" required>
+                            <div class="text-danger"
+                                *ngIf="Room_number.errors && (Room_number.dirty || Room_number.touched)">
+                                <div [hidden]="Room_number.errors.required" class="alert alert-danger form-alert">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                        class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
+                                        role="img" aria-label="Warning:">
+                                        <path
+                                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                    </svg>
+                                    Please enter a room number.
+                                </div>
+                                <!-- <div *ngIf="e_email.errors['required']">Email is
+                            required</div> -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input data-toggle="datepicker">
+                            <!-- <textarea data-toggle="datepicker"></textarea> -->
+                            <!-- <div data-toggle="datepicker"></div> -->
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-control">Time Picker</label>
+                            <input type="text" class="form-control timepicker" value="14:00">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">Image input</label>
+                            <div align="center">
+                                <img class="img1">
+                            </div>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose file picture</label>
+                                </div>
+                                <!-- <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer">
+                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

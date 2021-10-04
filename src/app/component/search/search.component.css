@@ -1,0 +1,58 @@
+.container {
+    margin: auto;
+}
+.skill{
+    width: 400px;
+    height: 400px;
+    /* background: cornflowerblue; */
+    margin: auto;
+    position: relative;
+}
+.outer{
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    padding: 20px;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+                -6px -6px 10px -1px rgba(15, 15, 15, 0.7);
+
+}
+.inner{
+    height: 260px;
+    width: 260px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 4px 4px 6px -1px rgba(39, 38, 38, 0.2),
+                inset -4px -4px 6px -1px rgba(27, 27, 27, 0.7),
+                -0.5px -0.5px 0px rgb(32, 32, 32),
+                0.5px 0.5px 0px rgb(34, 33, 33),
+                0px 12px 10px -10px rgba(51, 50, 50, 0.219);
+}
+#text-1{
+    font-weight: 300px;
+    color: chartreuse;
+}
+#number{
+    font-weight: 600px;
+    color: rgb(255, 255, 255);
+}
+circle{
+    fill: none;
+    stroke: url(#GradientColor);
+    stroke-width: 20px;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 20;
+    animation: anim 3s linear forwards;
+}
+svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/* @keyframes anim{
+    100%{
+        stroke-dashoffset: 1000;
+    }
+} */

@@ -1,0 +1,126 @@
+<!-- <app-appheader></app-appheader> -->
+<app-appmenu></app-appmenu>
+<div class="content-wrapper">
+    <section class="content-header">
+        <ol class="breadrumb>">
+            <h4>My Profile</h4>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-6">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Profile</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form #form="ngForm" novalidate>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="exampleInputEmail1"
+                                        [(ngModel)]="i_email" value="{{this.email}}" ngModel #e_email="ngModel" required>
+                                    <div class="text-danger"
+                                        *ngIf="e_email.errors && (e_email.dirty || e_email.touched)">
+                                        <div [hidden]="!e_email.errors.required" class="alert alert-danger form-alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor"
+                                                class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+                                                viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                                <path
+                                                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                            </svg>
+                                            Please enter a Email.
+                                        </div>
+                                        <!-- <div *ngIf="e_email.errors['required']">Email is
+                                        required</div> -->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">User name</label>
+                                    <input type="text" class="form-control" name="username" id="username"
+                                        [(ngModel)]="i_username" value="{{this.username}}" ngModel #e_username="ngModel"
+                                        required>
+                                    <div class="text-danger"
+                                        *ngIf="e_username.errors && (e_username.dirty || e_username.touched)">
+                                        <!-- <div *ngIf="e_username.errors['required']">User name is
+                                            required</div> -->
+                                        <div [hidden]="!e_username.errors.required"
+                                            class="alert alert-danger form-alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                fill="currentColor"
+                                                class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"
+                                                viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                                                <path
+                                                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                                            </svg>
+                                            Please enter a user name.
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Image input</label>
+                                    <div align="center">
+                                        <img class="img1" src="{{img}}" >
+                                    </div>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile"
+                                                (change)="getFile($event.target)">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file picture</label>
+                                        </div>
+                                        <!-- <div class="input-group-append">
+                                            <span class="input-group-text">Upload</span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary"
+                                    (click)="save()">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <!-- Form Element sizes -->
+                    <div class="card card-success">
+                        <div class="card-header" align="center">
+                            <h5>My Profile</h5>
+                        </div>
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="img-fluid img1" src="{{this.imgs}}"
+                                    alt="User profile picture">
+                            </div>
+                            <!-- <hr> -->
+                            <div class="card-body">
+                            <strong><i class="fas fa-envelope-open-text"></i> Email address</strong>
+                                <p class="text-muted">
+                                   {{this.email}}
+                                </p>
+                                <strong><i class="fas fa-at"></i> User name</strong>
+                                <p class="text-muted">
+                                   {{this.username}}
+                                </p>
+                            </div>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+</div>

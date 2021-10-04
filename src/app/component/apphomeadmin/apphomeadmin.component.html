@@ -1,0 +1,45 @@
+<!-- <app-appheader></app-appheader> -->
+<app-menuadmin></app-menuadmin>
+<div class="content-wrapper">
+  <section class="content-header" align="center">
+    <ol class="breadrumb>">
+      <h4>หน้าหลัก</h4>
+    </ol>
+    <!-- <h1><span>หน้าหลัก</span></h1> -->
+  </section>
+  <section class="content" align=center>
+    <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal">สร้างห้องใหม่ &nbsp;<i
+        class="fa fa-plus" aria-hidden="true" style="font-size:18px"></i></button>
+  </section>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">สร้างห้องใหม่</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Room number:</label>
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="Room_number" name="Room_number">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" (click)="create()">Create room</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="content">
+    <div class="container-fluid">
+      <app-table></app-table>
+    </div>
+  </section>
+</div>

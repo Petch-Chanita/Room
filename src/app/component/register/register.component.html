@@ -1,0 +1,66 @@
+<section class="login-block">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 login-sec">
+        <h2 class="text-center">Register</h2>
+        <form class="login-form"  novalidate>
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="text-lowpercase">Email</label>
+            <input type="email" class="form-control" placeholder="Room@hotmail.com" [(ngModel)]="i_email" required uniqueEmail
+               name="email" ngModel #e_email="ngModel">
+            <div class="text-danger" *ngIf="e_email.invalid && (e_email.dirty || e_email.touched)">
+              <div *ngIf="e_email.errors['required']">Email is required</div>
+              <div *ngIf="e_email.errors['uniqueEmail']">Email already exists try logging in</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="text-lowpercase">Username</label>
+            <input type="text" class="form-control" placeholder="User name" ngModel [(ngModel)]="i_username" required uniqueUsername
+            #e_username="ngModel"  name="username">
+            <div class="text-danger" *ngIf="e_username.invalid && (e_username.dirty || e_username.touched)">
+              <div *ngIf="e_username.errors['required']">Username is required</div>
+              <div *ngIf="e_username.errors['uniqueUsername']">Username already exists</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputPassword1" class="text-lowpercase">Password</label>
+            <input type="password" class="form-control" placeholder="************" ngModel [(ngModel)]="i_password"  minlength="5"
+              name="password" #password="ngModel" required >
+            <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+              <div *ngIf="password.errors['required']">Password is required</div>
+              <div *ngIf="password.errors.minlength">Password must be 5 characters or more </div>
+              
+            </div>
+            
+          </div>
+
+          <!-- <label class="text-lowpercase">Upload Your File </label>
+          <div>
+            <div class="form-group files">
+              <img [src]="urls" height="150"><br><br>
+              <input id="file" type="file" class="form-control" (change)="getFile($event.target)">
+            </div>
+            <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+          </div> -->
+
+
+          <div class="form-check">
+            <button  type="submit" class="btn btn-login float-right" (click)="submit()">Sign up</button>
+          </div>
+
+        </form>
+
+        <div class="copy-text">Already have an account?<a routerLink="/login" > Log in</a></div>
+      </div>
+      <div class="col-md-8 banner-sec">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <!-- <img class="d-block img-fluid" src="https://static.pexels.com/photos/33972/pexels-photo.jpg" alt="First slide"> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

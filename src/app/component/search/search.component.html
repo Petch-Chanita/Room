@@ -1,0 +1,52 @@
+<app-appmenu></app-appmenu>
+<div class="content-wrapper">
+  <section class="content-header">
+    <ol class="breadrumb>">
+
+    </ol>
+  </section>
+  <div class="container">
+    <!-- <app-text-search></app-text-search> -->
+    <!-- <app-card-search></app-card-search> -->
+    <form>
+      <div class="input-group mb-4">
+        <input class="form-control" style="color: white;" id="tableSearch" type="search"
+          placeholder="Search room number" [(ngModel)]="i_search" name="i_search">
+        <button class="btn btn-primary" type="button" (click)="search()">
+          <i class="fas fa-search fa-fw"></i>
+        </button>
+      </div>
+    </form>
+    <div class="container">
+      <div class="skill">
+        <div class="outer">
+          <div class="inner">
+            <div id="number" style="text-align:center;">
+              {{Room_number}}
+              <div id="text-1">
+                {{status}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
+          <defs>
+            <linearGradient id="GradientColor">
+              <stop offset="0%" stop-color="#b7ffb1" />
+              <stop offset="100%" stop-color="#95f2ff" />
+
+            </linearGradient>
+          </defs>
+          <circle cx="150" cy="150" r="140" stroke-linecap="round" />
+        </svg>
+        <br>
+      </div>
+    </div>
+
+
+    <!-- <app-card-search></app-card-search> -->
+
+  </div>
+
+</div>

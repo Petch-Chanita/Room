@@ -1,0 +1,174 @@
+ /* .main_content {
+  height: calc(100vh - 100px); 
+  background: #faf9f9;
+} */
+	
+*{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.login-block {
+	background: #DE6262;
+
+	background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+
+	background: linear-gradient(to bottom, #FFB88C, #DE6262);
+	
+	float: left;
+	width: 100%;
+	padding: 45px 0;
+}
+
+.banner-sec {
+	background: url(https://campus.campus-star.com/app/uploads/2017/02/IMG_6468.jpg) no-repeat left bottom;
+	background-size: cover;
+	min-height: 500px;
+	border-radius: 0 10px 10px 0;
+	padding: 0;
+}
+.msu {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+
+}
+
+
+.container {
+	background: rgb(45, 45, 46);
+	/* background: -webkit-linear-gradient(to bottom, #ebeae9, #3d3c3c);
+
+	background: linear-gradient(to bottom, #eeecea, #3d3b3b); */
+	border-radius: 10px;
+	box-shadow: 15px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+	border-radius: 0 10px 10px 0;
+}
+
+.carousel-caption {
+	text-align: left;
+	left: 5%;
+}
+
+.login-sec {
+	padding: 50px 30px;
+	position: relative;
+}
+
+.login-sec .copy-text {
+	position: absolute;
+	width: 80%;
+	bottom: 20px;
+	font-size: 13px;
+	text-align: center;
+}
+
+.login-sec .copy-text i {
+	color: #FEB58A;
+}
+
+.login-sec .copy-text a {
+	color: #E36262;
+}
+
+.login-sec h2 {
+	margin-bottom: 15px;
+	font-weight: 800;
+	font-size: 50px;
+	color: #DE6262;
+}
+
+.login-sec h2:after {
+	content: " ";
+	width: 150px;
+	height: 5px;
+	background: #FEB58A;
+	display: block;
+	margin-top: 20px;
+	border-radius: 3px;
+	margin-left: auto;
+	margin-right: auto
+}
+
+.btn-login {
+	width: 80px;
+	background: #DE6262;
+	color: #fff;
+	font-weight: bolder;
+}
+
+.btn-msu {
+	background: #DE6262;
+	color: rgb(249, 251, 252);
+	font-weight: 600;
+}
+
+.banner-text {
+	width: 70%;
+	position: absolute;
+	bottom: 40px;
+	padding-left: 20px;
+}
+
+.banner-text h2 {
+	color: #fff;
+	font-weight: 600;
+}
+
+.banner-text h2:after {
+	content: " ";
+	width: 100px;
+	height: 5px;
+	background: #FFF;
+	display: block;
+	margin-top: 20px;
+	border-radius: 3px;
+}
+
+.banner-text p {
+	color: #fff;
+}
+
+.msu-sec {
+	padding: 20px;
+}
+.msu-sec h4 {
+	margin-bottom: 5px;
+	font-weight: 800;
+	font-size: 30px;
+	color: #ecc544;
+	align-content: center;
+}
+
+.msu-sec h4:after {
+	content: " ";
+	width: 200px;
+	height: 5px;
+	background: #f7e652;
+	display: block;
+	margin-top: 20px;
+	border-radius: 3px;
+	margin-left: auto;
+	margin-right: auto
+	
+}
+.button{
+    width: 200px;
+    border: 1;
+    padding: 8px 10px;
+	font-size: 16px;
+	font-weight: bolder;
+    outline: none;
+    color: rgb(243, 247, 19);
+    background: linear-gradient(to right,#3f4647,#363d3f);
+    border-radius: 50px;
+	/* border-color: #FEB58A; */
+    cursor: pointer;
+
+}
+a{
+	font-size: 20px;
+}
