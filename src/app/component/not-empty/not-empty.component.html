@@ -5,35 +5,37 @@
         <h1><span>รายชื่อ</span> ห้องถูกใช้งาน</h1>
     </section><br>
     <section class="content">
-        <div class="container">
-            <div class="row">
-                <div *ngFor="let select of array">
-                    <div class="col">
-                        <div class="skill">
-                            <div class="outer">
-                                <div class="inner">
-                                    <div *ngIf="select.status == 'กำลังถูกใช้งาน'">
-                                        <div id="number" style="text-align:center;">
-                                            {{select.Room_number}}
-                                            <div id="text-1" style="text-align:center;">
-                                                {{select.status}}
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let select of array">
+                        <div class="col">
+                            <div class="skill">
+                                <div class="outer">
+                                    <div class="inner">
+                                        <div *ngIf="select.status == 'กำลังถูกใช้งาน'">
+                                            <div id="number" style="text-align:center;">
+                                                {{select.Room_number}}
+                                                <div id="text-1" style="text-align:center;">
+                                                    {{select.status}}
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
-
                                 </div>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
-                                <defs>
-                                    <linearGradient id="GradientColor">
-                                        <stop offset="0%" stop-color="#b7ffb1" />
-                                        <stop offset="100%" stop-color="#95f2ff" />
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="400px" height="400px">
+                                    <defs>
+                                        <linearGradient id="GradientColor">
+                                            <stop offset="0%" stop-color="#b7ffb1" />
+                                            <stop offset="100%" stop-color="#95f2ff" />
 
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="150" cy="150" r="140" stroke-linecap="round" />
-                            </svg>
-                            <br>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="150" cy="150" r="140" stroke-linecap="round" />
+                                </svg>
+                                <br>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,8 +2,6 @@ const express = require('express');
 const routes = express.Router();
 const Room = require('../numroom');
 
-
-
 routes.get('/', (req, res) => {
   res.send({ 'api': 'room' });
 });
