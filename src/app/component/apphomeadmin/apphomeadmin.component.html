@@ -3,7 +3,7 @@
 <div class="content-wrapper">
   <section class="content-header" align="center">
     <ol class="breadrumb>">
-      <h4><b>หน้าหลัก</b></h4>
+      <h4>หน้าหลัก</h4>
     </ol>
     <!-- <h1><span>หน้าหลัก</span></h1> -->
   </section>
@@ -22,17 +22,22 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form #form="ngForm" novalidate>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Room number:</label>
-              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="Room_number" name="Room_number">
+              <input type="text" class="form-control" id="recipient-name" [(ngModel)]="Room_number" name="Room_number" RoomValidate
+              ngModel #e_rooms="ngModel">
+              <div class="text-danger" *ngIf="e_rooms.invalid && (e_rooms.dirty || e_rooms.touched)">
+                <!-- <div *ngIf="e_rooms.errors['required']">Email is required</div> -->
+                <div *ngIf="e_rooms.errors['RoomValidate']">Rooms number already exists </div>
+              </div>
             </div>
 
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" (click)="create()">Create room</button>
+          <button [disabled]="form.invalid" type="button" class="btn btn-success" (click)="create()">Create room</button>
         </div>
       </div>
     </div>

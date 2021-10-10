@@ -9,9 +9,9 @@ const product = new Schema({
     label: {type : String},
    
 },
-{collection: 'admincreate'}
+{collection: 'model'}
 )
 
-const admincreateModel = mongoose.model('admincreate', product)
-module.exports = admincreateModel
+const adminModel = mongoose.model('model', product)
+module.exports = adminModel
 

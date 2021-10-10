@@ -1,3 +1,4 @@
+<script src="assets/Scripts/Jquery3.2.1.min.js"></script>
 <app-menuadmin></app-menuadmin>
 <div class="content-wrapper">
     <section class="content-header">
@@ -17,12 +18,12 @@
                 <form #form="ngForm" novalidate>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInput1">Room_number</label>
-                            <input type="text" class="form-control" name="Room_number" id="exampleInput1" ngModel
-                                #Room_number="ngModel" required>
+                            <label>Room number</label>
+                            <input type="text" class="form-control" name="Room_number" [(ngModel)]="Room_number" ngModel
+                                #i_Room_number="ngModel" required>
                             <div class="text-danger"
-                                *ngIf="Room_number.errors && (Room_number.dirty || Room_number.touched)">
-                                <div [hidden]="Room_number.errors.required" class="alert alert-danger form-alert">
+                                *ngIf="i_Room_number.errors && (i_Room_number.dirty || i_Room_number.touched)">
+                                <div [hidden]="i_Room_number.errors.required" class="alert alert-danger form-alert">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16"
                                         role="img" aria-label="Warning:">
@@ -35,39 +36,37 @@
                             required</div> -->
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input data-toggle="datepicker">
-                            <!-- <textarea data-toggle="datepicker"></textarea> -->
-                            <!-- <div data-toggle="datepicker"></div> -->
-
-                        </div>
 
                         <div class="form-group">
-                            <label class="label-control">Time Picker</label>
-                            <input type="text" class="form-control timepicker" value="14:00">
-                        </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="exampleInput1">DueDate</label>
+                                    <input placeholder="Select Date" class="form-control" ngbDatepicker
+                                        #d="ngbDatepicker" (click)="d.toggle()" [(ngModel)]="i_date" name="date" type="date">
 
-
-                        <div class="form-group">
-                            <label for="exampleInputFile">Image input</label>
-                            <div align="center">
-                                <img class="img1">
-                            </div>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="exampleInputFile">
-                                    <label class="custom-file-label" for="exampleInputFile">Choose file picture</label>
                                 </div>
-                                <!-- <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
-                            </div> -->
+                                <div class="col">
+                                    <label class="label-control">Due Time </label>
+                                    <div class="default-time-example">
+                                        <input class="form-control" [(ngModel)]="time" name="time" [ngxTimepicker]="picker">
+                                        <ngx-material-timepicker #picker></ngx-material-timepicker>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label >Status</label>
+                            <select class=" form-control ui dropdown" [(ngModel)]="label" name="label">
+                                <option value="ว่าง">ว่าง</option>
+                                <option value="กำลังถูกใช้งาน">กำลังถูกใช้งาน</option>
+                            </select>
+                        </div>
+                        
                     </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button [disabled]="form.invalid" type="submit" class="btn btn-primary">Submit</button>
+                        <button [disabled]="form.invalid" type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>

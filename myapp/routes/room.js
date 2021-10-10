@@ -9,6 +9,7 @@ routes.get('/', (req, res) => {
 //-------------------------------------------------- GET all -------------------------------------------------------------------
 routes.get('/select', async (req, res) => {
   var room = await Room.find({});
+  // room.sort();
   res.json(room)
 
 });
@@ -87,6 +88,15 @@ routes.get('/get/:_id', async (req, res) => {
       res.status(500).send(error)
   }
 });
+routes.get('/getname/:Room_number', async (req, res) => {
+  try {
+      var rooms = await Room.find({ Room_number: { '$regex':req.params.Room_number,'$options': 'i'} }).exec()
+      // console.log(req.params.Room_number);
+      res.send(rooms)
+  } catch (error) {
+      res.status(500).send(error)
+  }
+})
 
 
 

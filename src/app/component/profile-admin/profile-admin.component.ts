@@ -17,6 +17,9 @@ export class ProfileAdminComponent implements OnInit {
   filename: string;
   base64: string | ArrayBuffer;
   host
+  i_email
+  i_username
+  imgs
 
   constructor(private http: HttpClient,private data:DataserviceService) {
    
@@ -28,6 +31,10 @@ export class ProfileAdminComponent implements OnInit {
           this.username = res.username
           this.email = res.email
           this.img = res.Image
+          this.imgs = res.Image
+          this.i_email = res.email
+          this.i_username = res.username
+
         }
       })
    }getFile(target: EventTarget) {
@@ -53,13 +60,14 @@ export class ProfileAdminComponent implements OnInit {
   }
   save() {
     let json = { email: this.email, username: this.username, Image:this.img };
+    if(this.email != "" && this.username != ""){
+
+    
     this.http.post(this.host+'/users/user/'+this.mineID, json)
       .subscribe((response: any) => {
         console.log(response);
         if (response) {
-          if(response.success == false){
-            Swal.fire("ไม่สามารถแก้ไขได้", "มีชื่อผู้ใช้ หรืออีเมล์นี้แล้ว กรุณากรอกข้อมูลใหม่อีกครั้ง", "warning");
-          }else{ 
+          if(response.success == true){
             Swal.fire({
               // position:'top-end',
               icon: 'success',
@@ -68,7 +76,10 @@ export class ProfileAdminComponent implements OnInit {
               // buttons: false,
               timer: 2000
             });
-            // window. location.reload();         
+            window. location.reload();  
+            
+          }else{ 
+            Swal.fire("ไม่สามารถแก้ไขได้", "มีชื่อผู้ใช้ หรืออีเมล์นี้แล้ว กรุณากรอกข้อมูลใหม่อีกครั้ง", "warning");  
           }
         } else {
           console.log('Status : failed')
@@ -76,6 +87,9 @@ export class ProfileAdminComponent implements OnInit {
       }, error => {
         console.log('Error! ',error);
       });
+    }else{
+      Swal.fire("กรุณากรอกข้อมูลให้ถูกต้อง", "", "warning");
+    }
 
   }
 

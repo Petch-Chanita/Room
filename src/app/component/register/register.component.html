@@ -16,7 +16,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1" class="text-lowpercase">Username</label>
             <input type="text" class="form-control" placeholder="User name" ngModel [(ngModel)]="i_username" required uniqueUsername
-            #e_username="ngModel"  name="username">
+            #e_username="ngModel"  name="username" maxlength="15">
             <div class="text-danger" *ngIf="e_username.invalid && (e_username.dirty || e_username.touched)">
               <div *ngIf="e_username.errors['required']">Username is required</div>
               <div *ngIf="e_username.errors['uniqueUsername']">Username already exists</div>

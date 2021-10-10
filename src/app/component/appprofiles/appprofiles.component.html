@@ -18,12 +18,12 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form #form="ngForm" novalidate>
+                        <form>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                        [(ngModel)]="i_email" value="{{this.email}}" ngModel #e_email="ngModel" required>
+                                    <input type="email" class="form-control" name="email"
+                                        [(ngModel)]="email" ngModel #e_email="ngModel" required>
                                     <div class="text-danger"
                                         *ngIf="e_email.errors && (e_email.dirty || e_email.touched)">
                                         <div [hidden]="!e_email.errors.required" class="alert alert-danger form-alert">
@@ -42,9 +42,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">User name</label>
-                                    <input type="text" class="form-control" name="username" id="username"
-                                        [(ngModel)]="i_username" value="{{this.username}}" ngModel #e_username="ngModel"
-                                        required>
+                                    <input type="text" class="form-control" name="username"
+                                        [(ngModel)]="username" ngModel #e_username="ngModel"
+                                        required maxlength="15">
                                     <div class="text-danger"
                                         *ngIf="e_username.errors && (e_username.dirty || e_username.touched)">
                                         <!-- <div *ngIf="e_username.errors['required']">User name is
@@ -74,16 +74,13 @@
                                                 (change)="getFile($event.target)">
                                             <label class="custom-file-label" for="exampleInputFile">Choose file picture</label>
                                         </div>
-                                        <!-- <div class="input-group-append">
-                                            <span class="input-group-text">Upload</span>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary"
+                                <button type="submit" class="btn btn-primary"
                                     (click)="save()">Submit</button>
                             </div>
                         </form>
@@ -105,11 +102,11 @@
                             <div class="card-body">
                             <strong><i class="fas fa-envelope-open-text"></i> Email address</strong>
                                 <p class="text-muted">
-                                   {{this.email}}
+                                   {{this.i_email}}
                                 </p>
                                 <strong><i class="fas fa-at"></i> User name</strong>
                                 <p class="text-muted">
-                                   {{this.username}}
+                                   {{this.i_username}}
                                 </p>
                             </div>
 

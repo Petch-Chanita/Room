@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as $ from "jquery";
 import { DataserviceService } from 'src/app/dataservice.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-apphomeadmin',
@@ -48,7 +48,7 @@ export class ApphomeadminComponent implements OnInit {
 
   }
   create(){
-    let json = {Room_number:this.Room_number,status: "กำลังอัพเดท"}
+    let json = {Room_number:this.Room_number,status: "กำลังอัพเดท",temperature:"",motion:"",luminance:"",people:""}
     this.http.post(this.host+'/rooms/createroom', json, { observe: 'response' })
       .subscribe((response: any) => {
         console.log(response);

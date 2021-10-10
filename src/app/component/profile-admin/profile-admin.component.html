@@ -38,7 +38,7 @@
                                     <label for="exampleInputPassword1">User name</label>
                                     <input type="text" class="form-control" name="username" id="username"
                                         [(ngModel)]="username" value="{{this.username}}"  ngModel #e_username="ngModel"
-                                        required>
+                                        required maxlength="15">
                                     <div class="text-danger"
                                         *ngIf="e_username.errors && (e_username.dirty || e_username.touched)">
                                         <div [hidden]="!e_username.errors.required"
@@ -85,18 +85,18 @@
                         </div>
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="img-fluid img1" src="{{this.img}}"
+                                <img class="img-fluid img1" src="{{this.imgs}}"
                                     alt="User profile picture">
                             </div>
                             
                             <div class="card-body">
                             <strong><i class="fas fa-envelope-open-text"></i> Email address</strong>
                                 <p class="text-muted">
-                                   {{this.email}}
+                                   {{this.i_email}}
                                 </p>
                                 <strong><i class="fas fa-at"></i> User name</strong>
                                 <p class="text-muted">
-                                   {{this.username}}
+                                   {{this.i_username}}
                                 </p>
                             </div>
 
