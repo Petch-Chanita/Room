@@ -11,7 +11,7 @@ import { NotEmptyComponent } from './component/not-empty/not-empty.component';
 import { ProfileAdminComponent } from './component/profile-admin/profile-admin.component';
 import { RegisterComponent } from './component/register/register.component';
 import { SearchComponent } from './component/search/search.component';
-import { StaticAdminComponent } from './component/static-admin/static-admin.component';
+// import { StaticAdminComponent } from './component/static-admin/static-admin.component';
 
 const routes: Routes = [
   {path: '',component: LoginComponent},
@@ -21,13 +21,13 @@ const routes: Routes = [
   {path: 'login',component: LoginComponent},
   {path: 'register',component: RegisterComponent},
   {path: 'empty',component: EmptyComponent},
-  {path: 'notempty',component: NotEmptyComponent},
+  {path: 'not-empty',component: NotEmptyComponent},
   {path: 'appadmin',component: ApphomeadminComponent},
   {path: 'profiles-admin',component: ProfileAdminComponent},
   {path: 'search/:p1',component: SearchComponent},
   {path: 'search/:p1/',component: CardSearchComponent},
-  {path: 'static',component:StaticAdminComponent},
-  {path: 'create-model',component: CreateModelComponent}
+  // {path: 'static',component:StaticAdminComponent},
+  {path: 'model',component: CreateModelComponent}
   
 
 ];
