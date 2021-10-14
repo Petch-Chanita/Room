@@ -62,6 +62,26 @@ routes.post('/register',  async (req, res) => {
         })
     }
     const password = await bcrypt.hash(plainTextPassword, 10) 
+
+
+    // console.log(await User.find({email:email}));
+    // const userEmail = await User.find({email: req.params.email})
+
+    // const userName = await User.find({username: username})
+    // console.log(email);
+    // console.log(userEmail.email);
+    
+    
+
+    // if(email == user.email && username == user.username){
+    //     return 'อีเมล: '+user.email+' และ ชื่อ:'+user.username+' ถูกใช้งานแล้ว';
+    // }
+    // if(email == user.email ) {
+    //     return 'อีเมล: '+user.email+' ถูกใช้งานแล้ว';
+    // }
+    // if(username == user.username ) {
+    //     return 'ชื่อ: '+user.username+' ถูกใช้งานแล้ว';
+    // }
     try {
         await User.create({
             email,
@@ -72,9 +92,12 @@ routes.post('/register',  async (req, res) => {
         })
     } catch (error) {
 
-        return res.status(400).json()
+        const success = 1;
+
+        return res.status(400).json({success,error});
     }
-    res.status(200).json({ email, username, Image, message: "Data saved successfully." })
+    const success = 0;
+    res.status(200).json({success, email, username, Image, message: "Data saved successfully." })
 
 })
 

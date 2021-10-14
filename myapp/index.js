@@ -9,7 +9,7 @@ const Influx = require("influx");
 const moment = require('moment');
 
 var mongo_url = "mongodb://Roomsystem:admin01@202.28.34.197:27017/Roomsystem";
-mongoose.connect(mongo_url,
+mongoose.connect(mongo_url,{useFindAndModify:false},
     { useNewUrlParser: true }).then(
         () => {
             console.log("[success] task 2 : connected to the database ");
@@ -62,10 +62,10 @@ app.options('*', cors())
 //     sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 15m`);
 //     sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 15m`);
 //     sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 15m`);
-//     var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้" };
-//     var Room_sensor = {status:"กำลังถูกใช้",temperature: 0, motion: 0, luminance: 0,people: 0};
+//     var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้งาน" };
+//     var Room_sensor = {Room_number:"IT-109",status:"กำลังถูกใช้งาน",temperature: 0, motion: 0, luminance: 0,people: 0};
     
-//     var _id ={_id:"615d7097ac4f9e196cce8807"};
+//     var _id ="615d7097ac4f9e196cce8807";
 
 //     var today = moment(new Date()).format('DD-MM-YYYY H:mm');
 //     sensors.datetime = today;
@@ -91,11 +91,18 @@ app.options('*', cors())
 //     Static.create(
 //         sensors
 //     )
+//     console.log(_id);
 //     console.log(Room_sensor);
-//     Room.findOneAndUpdate(
+//     Room.findByIdAndUpdate(
 //         _id,
-//         Room_sensor
-        
+
+//         Room_sensor,
+//         {new:true},
+//         (err,data)=>{
+//             if(err != null){
+//                 console.log(err);
+//             }
+//         }
 //     )
 
 // });

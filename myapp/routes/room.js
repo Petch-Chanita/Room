@@ -29,6 +29,14 @@ routes.get('/search/:search', (req, res) => {
       })
   }
 });
+routes.get('/search/status/:search', (req, res) => {
+  const search = req.params.search;
+  Room.find({ status: { '$regex': search} })
+      .then(data => {
+        res.send(data);
+      })
+});
+
 // Create room
 routes.post('/createroom', async (req, res) => {
   const { Room_number, status, temperature, motion, luminance, people } = req.body

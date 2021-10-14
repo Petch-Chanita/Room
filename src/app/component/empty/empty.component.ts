@@ -13,10 +13,11 @@ export class EmptyComponent implements OnInit {
   Room;
   T_room ;
   array=[];
+
   constructor(private http: HttpClient,private data: DataserviceService) {
 
     this.host = data.host;
-    this.http.get(this.host+'/rooms/select').subscribe(
+    this.http.get(this.host+'/rooms/search/status/ว่าง').subscribe(
       (response:any)=>{
         console.log(response);
         this.Room = response;
@@ -24,7 +25,7 @@ export class EmptyComponent implements OnInit {
         for(let a of response){
           if(a.status =="ว่าง"){
             this.array.push(a) 
-            console.log(this.array);
+            console.log('array',this.array);
           }
         }
       })

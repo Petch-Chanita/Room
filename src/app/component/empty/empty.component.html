@@ -1,4 +1,4 @@
-<app-appheader></app-appheader>
+<!-- <app-appheader></app-appheader> -->
 <app-appmenu></app-appmenu>
 <div class="content-wrapper">
     <section class="content-header" align="center">
@@ -37,6 +37,11 @@
                                 <br>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div *ngIf="array.length == 0">
+                    <div align="center">
+                        <h1 style="color: gray; margin: auto;margin-top: 20%;">ไม่พบข้อมูล</h1>
                     </div>
                 </div>
             </div>
