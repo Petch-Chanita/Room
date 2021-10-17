@@ -176,44 +176,49 @@ routes.get('/refresh',async(res)=>{
             method: 'GET'
           };
           
-          http.request(options, function(res) {
+          const req =  http.request(options,(res)=> {
             res.setEncoding('utf8');
-            res.on('data', function (chunk) {
+            res.on('data', (chunk) =>{
     
-              console.log('BODY: ' +chunk);
-              // console.log(JSON.parse(chunk).status);
+                // console.log(`BODY: ${chunk.status}`);
+                console.log("BODY:",chunk);
+                console.log("status: ",JSON.parse(chunk)["status"]);
+            
             try {
-              //  console.log(JSON.parse(chunk).status);
-                if(chunk.status == 0){
+                console.log(JSON.parse(chunk)["status"]);
+                Room_sensor.datetime = moment(new Date()).format('DD-MM-YYYY H:mm');
+                if(JSON.parse(chunk)["status"] == 0){
                    
                     Room_sensor.status = "ว่าง"                                    
                 }else{
                     
                     Room_sensor.status = "กำลังถูกใช้งาน"
                 }
+                console.log(Room_sensor.status);
                 console.log(Room_sensor.datetime);
-                    Room.findByIdAndUpdate(
-                        _id,
-                        Room_sensor,
-                        { new: true },
-                        (err, data) => {
-                          console.log(data);
-                          return ;
-                            if (err != null) {
-                                console.log(err);
-                            }
+                Room.findByIdAndUpdate(
+                    _id,
+                    Room_sensor,
+                    { new: true },
+                    (err, data) => {
+                        if (err != null) {
+                            console.log(err);
                         }
-                    )
-                    console.log("jjjjjjj");
-    
+                    }
+                )
+                
             }catch(error){
                 console.log(error);
             }     
             });
-            console.log("sssss");
-          }
-          ).end();
+            res.on('end', () => {
+                console.log('No more data in response.');
+              });
+          });
+          req.on('error', (e) => {
+            console.error(`problem with request: ${e.message}`);
+          });
+          req.end();
     });
-// })
 
 module.exports = routes;

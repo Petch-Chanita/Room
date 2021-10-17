@@ -44,7 +44,7 @@ app.listen(port, () => {
 app.options('*', cors())
 
 
-cron.schedule('*/15 * * * *', async function () {
+cron.schedule('*/5 * * * *', async function () {
 
     const influx = new Influx.InfluxDB({
         host: '202.28.34.197',
@@ -62,9 +62,9 @@ cron.schedule('*/15 * * * *', async function () {
     });
 
     var sql = [];
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 1m`);
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 1m`);
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 1m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 5m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 5m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 5m`);
     var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้งาน" };
     var Room_sensor = { datetime: "",Room_number: "IT-109", status: "กำลังถูกใช้งาน", temperature: 0, motion: 0, luminance: 0, people: 0 };
     var infor_sensor = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };
@@ -96,7 +96,7 @@ cron.schedule('*/15 * * * *', async function () {
     Static.create(
         sensors
     )
-    console.log(infor_sensor);
+     console.log(infor_sensor);
     information.create(
         infor_sensor
     )
@@ -107,37 +107,53 @@ cron.schedule('*/15 * * * *', async function () {
         method: 'GET'
       };
       
-      http.request(options, function(res) {
+     
+      const req =  http.request(options,(res)=> {
         res.setEncoding('utf8');
-        res.on('data', function (chunk) {
+        res.on('data', (chunk) =>{
 
-        //   console.log('BODY: ' + JSON.parse(chunk).status);
+            // console.log(`BODY: ${chunk.status}`);
+            console.log("BODY:",chunk);
+            console.log("status: ",JSON.parse(chunk)["status"]);
+        
         try {
+            console.log(JSON.parse(chunk)["status"]);
             Room_sensor.datetime = moment(new Date()).format('DD-MM-YYYY H:mm');
-            if(JSON.parse(chunk).status == 0){
+            if(JSON.parse(chunk)["status"] == 0){
                
                 Room_sensor.status = "ว่าง"                                    
             }else{
                 
                 Room_sensor.status = "กำลังถูกใช้งาน"
             }
+            console.log(Room_sensor.status);
             console.log(Room_sensor.datetime);
-                Room.findByIdAndUpdate(
-                    _id,
-                    Room_sensor,
-                    { new: true },
-                    (err, data) => {
-                        if (err != null) {
-                            console.log(err);
-                        }
+            Room.findByIdAndUpdate(
+                _id,
+                Room_sensor,
+                { new: true },
+                (err, data) => {
+                    if (err != null) {
+                        console.log(err);
                     }
-                )
-
-        }catch{
+                }
+            )
+            
+        }catch(error){
             console.log(error);
         }     
         });
-      }).end();
+        res.on('end', () => {
+            console.log('No more data in response.');
+          });
+      });
+      req.on('error', (e) => {
+        console.error(`problem with request: ${e.message}`);
+      });
+      
+      // Write data to request body
+    //   req.write("hello");
+      req.end();
 });
 
 

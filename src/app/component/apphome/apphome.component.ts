@@ -44,7 +44,7 @@ export class ApphomeComponent implements OnInit {
   setTimeout(() => {
     console.log("aaaaaa");
     window.location.reload();
-  }, 7000); 
+  }, 12000); 
   Swals.fire({
     icon: 'warning',
     title: 'กำลังประมวลผล',
