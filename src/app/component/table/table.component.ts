@@ -22,6 +22,8 @@ export class TableComponent implements OnInit {
   status
   host
   array
+
+
   constructor(private http: HttpClient,private data:DataserviceService) { 
     
     this.host = data.host

@@ -26,6 +26,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>Datetime</th>
                         <th>Room number</th>
                         <th>Status</th>
                         <th>Temperature</th>
@@ -39,11 +40,12 @@
 
                 <tbody id="myTable" *ngFor="let item of response">
                     <tr>
+                        <td>{{item.datetime}}</td>
                         <td>{{item.Room_number}}</td>
                         <td>{{item.status}}</td>
-                        <td>{{item.temperature}}</td>
-                        <td>{{item.motion}}</td>
-                        <td>{{item.luminance}}</td>
+                        <td>{{item.temperature | number }}</td>
+                        <td>{{item.motion | number}}</td>
+                        <td>{{item.luminance | number}}</td>
                         <!-- <td>{{item.people}}</td> -->
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">

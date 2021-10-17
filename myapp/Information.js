@@ -2,18 +2,17 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const product = new Schema({
-    Idroom :{ type : String},
     datetime :{ type : String},
-    Room_number: { type : String},
-    status: {type : String},
     temperature:{ type : Number},
     motion:{ type : Number},
     luminance: { type : Number},
-    people: { type : Number}
+    label:{ type : String}
+    
+   
 },
-{collection: 'numroom'}
+{collection: 'information'}
 )
 
-const roomModel = mongoose.model('numroom', product)
-module.exports = roomModel
+const informationModel = mongoose.model('information', product)
+module.exports = informationModel
 

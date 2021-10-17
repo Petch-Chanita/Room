@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as $ from "jquery";
 import { DataserviceService } from 'src/app/dataservice.service';
-// import Swal from 'sweetalert2';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-apphomeadmin',
@@ -13,6 +13,7 @@ export class ApphomeadminComponent implements OnInit {
 
   host
   Room_number
+  
  
 
   constructor(private http:HttpClient,private data : DataserviceService) {
@@ -49,11 +50,19 @@ export class ApphomeadminComponent implements OnInit {
   }
   create(){
     let json = {Room_number:this.Room_number,status: "กำลังอัพเดท",temperature:"",motion:"",luminance:"",people:""}
+
+    // datetime: moment(new Date()).format('DD-MM-YYYY H:mm'),
+
+    console.log(JSON.stringify(json));
+    console.log(this.Room_number);
+    
+
     this.http.post(this.host+'/rooms/createroom', json, { observe: 'response' })
-      .subscribe((response: any) => {
-        console.log(response);
-        this.Room_number = response.Room_number;
-        console.log(this.Room_number);
+      .subscribe((res: any) => {
+        console.log(res);
+        
+        this.Room_number = res.Room_number;
+        
         window. location.reload(); 
       })
   }

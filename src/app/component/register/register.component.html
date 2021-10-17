@@ -3,10 +3,10 @@
     <div class="row">
       <div class="col-md-4 login-sec">
         <h2 class="text-center">Register</h2>
-        <form class="login-form"  novalidate>
+        <form class="login-form" #form="ngForm" novalidate>
           <div class="form-group">
             <label for="exampleInputEmail1" class="text-lowpercase">Email</label>
-            <input type="email" class="form-control" placeholder="Room@hotmail.com" [(ngModel)]="i_email" required uniqueEmail
+            <input type="email" class="form-control" placeholder="Room@hotmail.com" [(ngModel)]="i_email" uniqueEmail required 
                name="email" ngModel #e_email="ngModel">
             <div class="text-danger" *ngIf="e_email.invalid && (e_email.dirty || e_email.touched)">
               <div *ngIf="e_email.errors['required']">Email is required</div>
@@ -46,7 +46,7 @@
 
 
           <div class="form-check">
-            <button  type="submit" class="btn btn-login float-right" (click)="submit()">Sign up</button>
+            <button [disabled]="form.invalid"  type="submit" class="btn btn-login float-right" (click)="submit()">Sign up</button>
           </div>
 
         </form>

@@ -14,9 +14,11 @@ routes.post('/login', async (req, res,) => {
     const { username, password } = req.body
     const user = await User.findOne({ username }).lean()
     if (!user) {
-        return res.status(400).json({ status: 'error',
+        const success = 1;
+        return res.status(400).json({success, status: 'error',
          error: 'Invaild username/password',username,password })
     }
+
     bcrypt.compare(password, user.password).then((result) => {
         // ทำแบบอนาคต
         if (result) {   
@@ -24,11 +26,12 @@ routes.post('/login', async (req, res,) => {
                 id: user._id,
                 username: user.username
             }, JWT_SECRET)
-
-            return res.status(200).json({ _id: user._id, data: token })
+            const success = 0;
+            return res.status(200).json({ success,_id: user._id, data: token })
 
         } else {
-            return res.status(400).json({  status: 'error', error: 'Invaild username/password',username,password })
+            const success = 1;
+            return res.status(400).json({ success, status: 'error', error: 'Invaild username/password',username,password })
         }
     });
 })
@@ -62,26 +65,6 @@ routes.post('/register',  async (req, res) => {
         })
     }
     const password = await bcrypt.hash(plainTextPassword, 10) 
-
-
-    // console.log(await User.find({email:email}));
-    // const userEmail = await User.find({email: req.params.email})
-
-    // const userName = await User.find({username: username})
-    // console.log(email);
-    // console.log(userEmail.email);
-    
-    
-
-    // if(email == user.email && username == user.username){
-    //     return 'อีเมล: '+user.email+' และ ชื่อ:'+user.username+' ถูกใช้งานแล้ว';
-    // }
-    // if(email == user.email ) {
-    //     return 'อีเมล: '+user.email+' ถูกใช้งานแล้ว';
-    // }
-    // if(username == user.username ) {
-    //     return 'ชื่อ: '+user.username+' ถูกใช้งานแล้ว';
-    // }
     try {
         await User.create({
             email,
@@ -103,6 +86,7 @@ routes.post('/register',  async (req, res) => {
 
 // ------------------------------------------------------- register msu -----------------------------------------------------------------------------------------------------------------------
 routes.post('/register/msu', async (req, res) => {
+    const errors = validationResult(req)
     const { email, password: plainTextPassword, username, Image } = req.body
     const password = await bcrypt.hash(plainTextPassword, 10) //รอก่อนทำ
 
@@ -116,8 +100,7 @@ routes.post('/register/msu', async (req, res) => {
 
         })
     } catch (error) {
-
-        return res.status(400).json()
+        return res.status(400).json({error,message: "Data saved Error."});
     }
     res.status(200).json({ email, username, Image,message: "Data saved successfully."  })
 
