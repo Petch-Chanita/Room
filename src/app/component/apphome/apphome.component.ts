@@ -13,10 +13,10 @@ export class ApphomeComponent implements OnInit {
 
 
   host
-  constructor(private http:HttpClient,private data: DataserviceService) {
+  constructor(private http: HttpClient, private data: DataserviceService) {
     this.host = data.host
   }
-   
+
 
   ngOnInit(): void {
     sessionStorage.Apphome = "Apphome";
@@ -39,27 +39,29 @@ export class ApphomeComponent implements OnInit {
 
   refrsh() {
     console.log("refreshhhhhhhhhhhhhhhhhh");
-    
-  this.http.get(this.host+'/rooms/refresh').subscribe()
-  setTimeout(() => {
-    console.log("aaaaaa");
-    window.location.reload();
-  }, 12000); 
-  Swals.fire({
-    icon: 'warning',
-    title: 'กำลังประมวลผล',
-    didOpen: () =>{
-      Swals.showLoading()
 
-    },
-    showConfirmButton: false,
-    // timer: 1500
-  }).then((result)=>{
-    if(result.dismiss === Swals.DismissReason.timer){
-      console.log('Timer');
-      
-    }
-  });
+    this.http.get(this.host + '/rooms/refresh').subscribe()
+    setTimeout(() => {
+      console.log("aaaaaa");
+      window.location.reload();
+    }, 20000);
+
+
+    Swals.fire({
+      icon: 'warning',
+      title: 'กำลังประมวลผล',
+      didOpen: () => {
+        Swals.showLoading()
+
+      },
+      showConfirmButton: false,
+      // timer: 1500
+    }).then((result) => {
+      if (result.dismiss === Swals.DismissReason.timer) {
+        console.log('Timer');
+
+      }
+    });
   }
 
 }

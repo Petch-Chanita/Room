@@ -18,7 +18,7 @@ export class UserService {
    }
 
   getUsers(){
-    return this.http.get<any[]>(this.host+'/users/userall/').pipe(
+    return this.http.get<any[]>(this.host+'/users/userall').pipe(
       map(users => {
         const newUsers =[]
         for(let user of users){

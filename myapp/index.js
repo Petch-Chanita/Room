@@ -44,7 +44,7 @@ app.listen(port, () => {
 app.options('*', cors())
 
 
-cron.schedule('*/5 * * * *', async function () {
+cron.schedule('* * * * *', async function () {
 
     const influx = new Influx.InfluxDB({
         host: '202.28.34.197',
@@ -62,9 +62,9 @@ cron.schedule('*/5 * * * *', async function () {
     });
 
     var sql = [];
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 5m`);
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 5m`);
-    sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 5m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 1m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 1m`);
+    sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 1m`);
     var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้งาน" };
     var Room_sensor = { datetime: "",Room_number: "IT-109", status: "กำลังถูกใช้งาน", temperature: 0, motion: 0, luminance: 0, people: 0 };
     var infor_sensor = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };

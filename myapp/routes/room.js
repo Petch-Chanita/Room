@@ -112,7 +112,7 @@ routes.get('/getname/:Room_number', async (req, res) => {
   }
 })
 
-routes.get('/refresh',async(res)=>{
+routes.get('/refresh',async(request,response)=>{
 
   const influx = new Influx.InfluxDB({
             host: '202.28.34.197',
@@ -218,6 +218,7 @@ routes.get('/refresh',async(res)=>{
           req.on('error', (e) => {
             console.error(`problem with request: ${e.message}`);
           });
+          response.send({ title: 'End' });
           req.end();
     });
 
