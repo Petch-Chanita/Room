@@ -16,6 +16,7 @@ export class CardSearchComponent implements OnInit {
   ids
   mineID
   i_search
+  datetime
 
   constructor(private http:HttpClient,private acRouter:ActivatedRoute,private data:DataserviceService,private router:Router) {
     this.mineID = sessionStorage.getItem("mineID");
@@ -30,6 +31,7 @@ export class CardSearchComponent implements OnInit {
     this.http.get(this.host+'/rooms/search/'+this.i_search).subscribe(
       (response:any)=>{
         console.log(response);
+        this.datetime = response[0].datetime
         this.Room_number = response[0].Room_number
         this.status = response[0].status
       })

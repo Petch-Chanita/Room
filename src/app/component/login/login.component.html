@@ -6,16 +6,16 @@
         <form class="login-form">
 
           <div class="form-group">
-            <label for="exampleInputEmail1" class="text-lowpercase">User name</label>
-            <input type="username" class="form-control " placeholder="User name" ngModel #username="ngModel"
+            <label for="exampleInputEmail1" class="text-lowpercase">ชื่อผู้ใช้</label>
+            <input type="username" class="form-control " placeholder="ชื่อผู้ใช้" ngModel #username="ngModel"
               [(ngModel)]="i_username" required name="username">
             <div class="text-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
-              Username is required
+              กรุณากรอกชื่อผู้ใช้
             </div>
           </div>
 
           <div class="form-group">
-            <label for="exampleInputPassword1" class="text-lowpercase">Password</label>
+            <label for="exampleInputPassword1" class="text-lowpercase">รหัสผ่าน</label>
             <input type="password" class="form-control " [(ngModel)]="i_password" ngModel #password="ngModel" required
               name="Password" placeholder="*********">
             <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
@@ -73,9 +73,9 @@
           <img class="img-fluid msu" src=" https://www.tobepharmacist.com/wp-content/uploads/2016/08/msu.png">
           <div align="center"><br>
             <button type="button" class="button" (click)="open(content)">
-              Sign up with MSU
+             สมัครด้วยบัญชี MSU
             </button>
-            <div class="copy-text">Created with <i class="fa fa-heart"></i> by <a  routerLink="/register" >Register</a></div>
+            <div class="copy-text">สมัครสมาชิก <i class="fa fa-heart"></i> คลิก <a  routerLink="/register" >Register</a></div>
           </div>
         </div>
       </div>

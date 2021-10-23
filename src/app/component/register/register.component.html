@@ -5,53 +5,42 @@
         <h2 class="text-center">Register</h2>
         <form class="login-form" #form="ngForm" novalidate>
           <div class="form-group">
-            <label for="exampleInputEmail1" class="text-lowpercase">Email</label>
+            <label for="exampleInputEmail1" class="text-lowpercase">อีเมล</label>
             <input type="email" class="form-control" placeholder="Room@hotmail.com" [(ngModel)]="i_email" uniqueEmail required 
                name="email" ngModel #e_email="ngModel">
             <div class="text-danger" *ngIf="e_email.invalid && (e_email.dirty || e_email.touched)">
-              <div *ngIf="e_email.errors['required']">Email is required</div>
-              <div *ngIf="e_email.errors['uniqueEmail']">Email already exists try logging in</div>
+              <div *ngIf="e_email.errors['required']">กรุณากรอกอีเมล</div>
+              <div *ngIf="e_email.errors['uniqueEmail']">มีอีเมลนี้แล้ว</div>
             </div>
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1" class="text-lowpercase">Username</label>
-            <input type="text" class="form-control" placeholder="User name" ngModel [(ngModel)]="i_username" required uniqueUsername
+            <label for="exampleInputEmail1" class="text-lowpercase">ชื่อผู้ใช้</label>
+            <input type="text" class="form-control" placeholder="ชื่อผู้ใช้" ngModel [(ngModel)]="i_username" required uniqueUsername
             #e_username="ngModel"  name="username" maxlength="15">
             <div class="text-danger" *ngIf="e_username.invalid && (e_username.dirty || e_username.touched)">
-              <div *ngIf="e_username.errors['required']">Username is required</div>
-              <div *ngIf="e_username.errors['uniqueUsername']">Username already exists</div>
+              <div *ngIf="e_username.errors['required']">กรุณากรอกชื่อผู้ใช้</div>
+              <div *ngIf="e_username.errors['uniqueUsername']">มีชื่อผู้ใช้นี้แล้ว</div>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="exampleInputPassword1" class="text-lowpercase">Password</label>
+            <label for="exampleInputPassword1" class="text-lowpercase">รหัสผ่าน</label>
             <input type="password" class="form-control" placeholder="************" ngModel [(ngModel)]="i_password"  minlength="5"
               name="password" #password="ngModel" required >
             <div class="text-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-              <div *ngIf="password.errors['required']">Password is required</div>
-              <div *ngIf="password.errors.minlength">Password must be 5 characters or more </div>
+              <div *ngIf="password.errors['required']">กรุณากรอกรหัสผ่าน</div>
+              <div *ngIf="password.errors.minlength">รหัสผ่านต้องมีอักขระ 5 ตัวขึ้นไป</div>
               
             </div>
             
           </div>
-
-          <!-- <label class="text-lowpercase">Upload Your File </label>
-          <div>
-            <div class="form-group files">
-              <img [src]="urls" height="150"><br><br>
-              <input id="file" type="file" class="form-control" (change)="getFile($event.target)">
-            </div>
-            <a href="{{this.url}}" target="_blank">{{this.url}}</a>
-          </div> -->
-
-
           <div class="form-check">
             <button [disabled]="form.invalid"  type="submit" class="btn btn-login float-right" (click)="submit()">Sign up</button>
           </div>
 
         </form>
 
-        <div class="copy-text">Already have an account?<a routerLink="/login" > Log in</a></div>
+        <div class="copy-text">มีบัญชีอยู่แล้ว?<a routerLink="/login" > Log in</a></div>
       </div>
       <div class="col-md-8 banner-sec">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

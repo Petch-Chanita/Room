@@ -21,32 +21,46 @@
             <div class="mb-4 col-sm-8">
                 <h3 class="mb-4 ">รายชื่อห้อง <b>ทั้งหมด</b></h3>
             </div>
-            <input class="mb-4 search" style="color: rgb(3, 3, 3);" id="tableSearch" type="text"
-                placeholder="Type something to search list items">
+            <input class="mb-4 search" style="color: rgb(3, 3, 3);" id="tableSearch" type="text" placeholder=" ค้นหา">
             <table class="table table-bordered table-striped">
-                <thead>
+                <thead align="center">
                     <tr>
-                        <th>Datetime</th>
-                        <th>Room number</th>
-                        <th>Status</th>
-                        <th>Temperature</th>
-                        <th>Motion</th>
-                        <th>Luminance</th>
+                        <th>วัน/เวลา ปัจจุบัน</th>
+                        <th>ชื่อห้อง</th>
+                        <th>สถานะ</th>
+                        <th>อุณหภูมิ</th>
+                        <th>การเคลื่อนไหว</th>
+                        <th>ค่าแสง</th>
                         <!-- <th>People</th> -->
-                        <th>Edit</th>
+                        <th>แก้ไข</th>
 
                     </tr>
                 </thead>
 
                 <tbody id="myTable" *ngFor="let item of response">
-                    <tr>
+                    <tr  align="center">
                         <td>{{item.datetime}}</td>
                         <td>{{item.Room_number}}</td>
                         <td>{{item.status}}</td>
-                        <td>{{item.temperature | number }}</td>
-                        <td>{{item.motion | number}}</td>
-                        <td>{{item.luminance | number}}</td>
-                        <!-- <td>{{item.people}}</td> -->
+                        <td *ngIf="item.temperature!= null">{{item.temperature | number }} °C</td>
+                        <td *ngIf="item.temperature == null"></td>
+              
+                        <td *ngIf="item.motion == null"></td>
+                        <td *ngIf="item.motion == 0">ไม่มีความเคลื่อนไหว</td>
+                        <td *ngIf="(item.motion > 0) && (item.motion <= '0.2')">เคลื่อนไหวเล็กน้อย</td>
+                        <td *ngIf="(item.motion > '0.2') && (item.motion <= '0.5')">เคลื่อนไหวปานกลาง</td>
+                        <td *ngIf="(item.motion > '0.5') && (item.motion <= 1)">เคลื่อนไหวมาก</td>
+                        <!-- {{item.motion | number}} -->
+
+                        <!-- {{item.luminance | number}}  -->
+                        <td *ngIf="item.luminance == null"></td>
+                        <td *ngIf="item.luminance >0 && item.luminance <=100">แสงแสบตา</td>
+                        <td *ngIf="item.luminance >100 && item.luminance <=300">แสงจ้า</td>
+                        <td *ngIf="item.luminance >300 && item.luminance <=400">แสงมาก</td>
+                        <td *ngIf="item.luminance >400 && item.luminance <=600">แสงปานกลาง</td>
+                        <td *ngIf="item.luminance >600 && item.luminance <=700">มีแสงเล็กน้อย</td>
+                        <td *ngIf="item.luminance >700 ">มืด</td>
+
                         <td>
                             <p data-placement="top" data-toggle="tooltip" title="Edit">
                                 <button class="btn btn-warning btn-xs" data-title="Edit" data-toggle="modal"

@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   i_search
   res
   status
+  datetime
 
 
   constructor(private http: HttpClient,private data:DataserviceService,
@@ -35,6 +36,7 @@ export class SearchComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           console.log(res);
+          this.datetime = res[0].datetime
           this.Room_number = res[0].Room_number;
           this.status = res[0].status;
           console.log(this.Room_number+"---"+this.status);

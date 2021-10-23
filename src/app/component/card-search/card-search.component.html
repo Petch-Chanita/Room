@@ -11,7 +11,7 @@
     <form>
       <div class="input-group mb-4">
         <input class="form-control" style="color: white;" id="tableSearch" type="search"
-          placeholder="Search room number" [(ngModel)]="i_search" name="i_search">
+          placeholder="ค้นหาหมายเลขห้อง" [(ngModel)]="i_search" name="i_search">
         <button class="btn btn-primary" type="button" (click)="search()">
           <i class="fas fa-search fa-fw"></i>
         </button>
@@ -23,6 +23,7 @@
           <div class="outer">
             <div class="inner">
               <div id="number" style="text-align:center;">
+                {{datetime}}
                 {{Room_number}}
                 <div id="text-1">
                   {{status}}
