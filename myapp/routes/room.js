@@ -36,10 +36,10 @@ routes.get('/search/:search', (req, res) => {
 });
 routes.get('/search/status/:search', (req, res) => {
   const search = req.params.search;
-  Room.find({ status: { '$regex': search} })
-      .then(data => {
-        res.send(data);
-      })
+  Room.find({ status: { '$regex': search } })
+    .then(data => {
+      res.send(data);
+    })
 });
 
 // Create room
@@ -66,160 +66,284 @@ routes.post('/createroom', async (req, res) => {
 routes.post('/update/:_id', function (req, res) {
 
   Room.findByIdAndUpdate(
-      req.params._id,
-      {
-        Room_number: req.body.Room_number,
-          status: req.body.status
-      },
-      {
-          new: true
-      },
-      (err, data) => {
-          if (err) {
-              res.json({
-                  success: false,
-                  message: err
-              })
-          } else if (!data) {
-              res.json({
-                  success: false,
-                  message: "Not Found"
-              })
-          } else {
-              res.json({
-                  success: true,
-                  data: data
-              })
-          }
+    req.params._id,
+    {
+      Room_number: req.body.Room_number,
+      status: req.body.status
+    },
+    {
+      new: true
+    },
+    (err, data) => {
+      if (err) {
+        res.json({
+          success: false,
+          message: err
+        })
+      } else if (!data) {
+        res.json({
+          success: false,
+          message: "Not Found"
+        })
+      } else {
+        res.json({
+          success: true,
+          data: data
+        })
       }
+    }
   )
 })
 routes.get('/get/:_id', async (req, res) => {
   try {
-      var person = await Room.findById(req.params._id).exec()
-      res.send(person)
+    var person = await Room.findById(req.params._id).exec()
+    res.send(person)
   } catch (error) {
-      res.status(500).send(error)
+    res.status(500).send(error)
   }
 });
 routes.get('/getname/:Room_number', async (req, res) => {
   try {
-      var rooms = await Room.find({ Room_number: { '$regex':req.params.Room_number,'$options': 'i'} }).exec()
-      // console.log(req.params.Room_number);
-      res.send(rooms)
+    var rooms = await Room.find({ Room_number: { '$regex': req.params.Room_number, '$options': 'i' } }).exec()
+    // console.log(req.params.Room_number);
+    res.send(rooms)
   } catch (error) {
-      res.status(500).send(error)
+    res.status(500).send(error)
   }
 })
 
-routes.get('/refresh',async(request,response)=>{
-
+routes.get('/refresh', async (req, res) => {
   const influx = new Influx.InfluxDB({
-            host: '202.28.34.197',
-            port: 8086,
-            database: 'LabRoom_lora',
-            username: 'admin',
-            password: 'C$@dmin',
-            schema: [
-                {
-                    measurement: 'device_frmpayload_data_Luminance',
-                    fields: { value: Influx.FieldType.FLOAT },
-                    tags: ['application_name', 'dev_eui', 'device_name', 'f_port'],
-                },
-            ]
-        });
-    
-        var sql = [];
-        sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 15m`);
-        sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 15m`);
-        sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 15m`);
-        var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้งาน" };
-        var Room_sensor = { datetime: "",Room_number: "IT-109", status: "กำลังถูกใช้งาน", temperature: 0, motion: 0, luminance: 0, people: 0 };
-        var infor_sensor = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };
-        var _id = "615d7097ac4f9e196cce8807";
-    
+    host: '202.28.34.197',
+    port: 8086,
+    database: 'LabRoom_lora',
+    username: 'admin',
+    password: 'C$@dmin',
+    schema: [
+      {
+        measurement: 'device_frmpayload_data_Luminance',
+        fields: { value: Influx.FieldType.FLOAT },
+        tags: ['application_name', 'dev_eui', 'device_name', 'f_port'],
+      },
+    ]
+  });
+
+  var sql_rooms = 'select DISTINCT(device_name) from (select *  from device_frmpayload_data_Luminance)';
+  let result = await influx.query(sql_rooms);
+  if (result.length > 0) {
+    for (let item of result) {
+      console.log("item: ", item["distinct"]);
+      var sql = [];
+      sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where device_name = '${item["distinct"]}'  and time > now() - 15m`);
+      sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where device_name = '${item["distinct"]}' and time > now() - 15m`);
+      sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where device_name = '${item["distinct"]}' and time > now() - 15m`);
+      var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };
+      var Room_sensor = { datetime: "", Room_number: item["distinct"], status: "", temperature: 0, motion: 0, luminance: 0, people: 0 };
+
+      var infor_sensor = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };
+
+      var qq = await Room.find({ Room_number: item["distinct"] });
+      // console.log("qq 1: ",qq);
+      if (qq.length > 0) {
+        console.log("qq", JSON.stringify(qq[0]));
+        var json_data = JSON.parse(JSON.stringify(qq[0]));
+        console.log("data:", json_data["_id"]);
+
+        var _id = json_data["_id"];
+
+        console.log(_id);
         var today = moment(new Date()).format('DD-MM-YYYY H:mm');
         sensors.datetime = today;
-        Room_sensor.datetime = today;
         infor_sensor.datetime = today;
+
         for (let i = 0; i < sql.length; i++) {
-            let result = await influx.query(sql[i]);
-            if (result.length == 1) {
-                if (i == 0) {
-                    sensors.luminance = result[0].mean;
-                    Room_sensor.luminance = result[0].mean;
-                    infor_sensor.luminance = result[0].mean;
-                }
-                else if (i == 1) {
-                    sensors.motion = result[0].mean;
-                    Room_sensor.motion = result[0].mean;
-                    infor_sensor.motion = result[0].mean;
-                }
-                else if (i == 2) {
-                    sensors.temperature = result[0].mean;
-                    Room_sensor.temperature = result[0].mean;
-                    infor_sensor.temperature = result[0].mean;
-                }
+          let result = await influx.query(sql[i]);
+          console.log("result: ", result.length);
+          if (result.length == 1) {
+            if (i == 0) {
+              sensors.luminance = result[0].mean;
+              Room_sensor.luminance = result[0].mean;
+              console.log("Room: ", Room_sensor.luminance);
+              infor_sensor.luminance = result[0].mean;
             }
+            else if (i == 1) {
+              sensors.motion = result[0].mean;
+              Room_sensor.motion = result[0].mean;
+              console.log("Room: ", Room_sensor.motion);
+              infor_sensor.motion = result[0].mean;
+            }
+            else if (i == 2) {
+              sensors.temperature = result[0].mean;
+              Room_sensor.temperature = result[0].mean;
+              console.log("Room: ", Room_sensor.temperature);
+              infor_sensor.temperature = result[0].mean;
+            }
+          }
         }
+        console.log("Static: ", sensors);
         Static.create(
-            sensors
+          sensors
         )
-        console.log(infor_sensor);
+        console.log("information: ", infor_sensor);
         information.create(
-            infor_sensor
+          infor_sensor
         )
         var options = {
-            host: '203.154.83.62',
-            port: 20000,
-            path: '/prediction',
-            method: 'GET'
-          };
-          
-          const req =  http.request(options,(res)=> {
-            res.setEncoding('utf8');
-            res.on('data', (chunk) =>{
-    
-                // console.log(`BODY: ${chunk.status}`);
-                console.log("BODY:",chunk);
-                console.log("status: ",JSON.parse(chunk)["status"]);
-            
-            try {
-                console.log(JSON.parse(chunk)["status"]);
-                Room_sensor.datetime = moment(new Date()).format('DD-MM-YYYY H:mm');
-                if(JSON.parse(chunk)["status"] == 0){
-                   
-                    Room_sensor.status = "ว่าง"                                    
-                }else{
-                    
-                    Room_sensor.status = "กำลังถูกใช้งาน"
+          host: '203.154.83.62',
+          port: 20000,
+          path: '/prediction',
+          method: 'GET'
+        };
+        const req = http.request(options, (res) => {
+          res.setEncoding('utf8');
+          res.on('data', (chunk) => {
+            console.log("BODY:", chunk);
+            console.log("status: ", JSON.parse(chunk)["status"]);
+
+            console.log(JSON.parse(chunk)["status"]);
+            Room_sensor.datetime = moment(new Date()).format('DD-MM-YYYY H:mm');
+            if (JSON.parse(chunk)["status"] == 0) {
+
+              Room_sensor.status = "ว่าง"
+            } else {
+
+              Room_sensor.status = "กำลังถูกใช้งาน"
+            }
+            console.log(Room_sensor.status);
+            console.log(Room_sensor.datetime);
+            Room.findByIdAndUpdate(
+              _id,
+              Room_sensor,
+              { new: true },
+              (err, data) => {
+                if (err != null) {
+                  console.log(err);
                 }
-                console.log(Room_sensor.status);
-                console.log(Room_sensor.datetime);
-                Room.findByIdAndUpdate(
-                    _id,
-                    Room_sensor,
-                    { new: true },
-                    (err, data) => {
-                        if (err != null) {
-                            console.log(err);
-                        }
-                    }
-                )
-                
-            }catch(error){
-                console.log(error);
-            }     
-            });
-            res.on('end', () => {
-                console.log('No more data in response.');
-              });
+              }
+            )
           });
-          req.on('error', (e) => {
-            console.error(`problem with request: ${e.message}`);
+          res.on('end', () => {
+            console.log('No more data in response.');
           });
-          response.send({ title: 'End' });
-          req.end();
-    });
+        });
+        req.on('error', (e) => {
+          console.error(`problem with request: ${e.message}`);
+        });
+
+        // Write data to request body
+        //   req.write("hello");
+        req.end();
+
+      }
+    }
+  }
+  res.send({ title: 'End' });
+  // const influx = new Influx.InfluxDB({
+  //           host: '202.28.34.197',
+  //           port: 8086,
+  //           database: 'LabRoom_lora',
+  //           username: 'admin',
+  //           password: 'C$@dmin',
+  //           schema: [
+  //               {
+  //                   measurement: 'device_frmpayload_data_Luminance',
+  //                   fields: { value: Influx.FieldType.FLOAT },
+  //                   tags: ['application_name', 'dev_eui', 'device_name', 'f_port'],
+  //               },
+  //           ]
+  //       });
+
+  //       var sql = [];
+  //       sql.push(`select count(*), mean(value) from device_frmpayload_data_Luminance where time > now() - 15m`);
+  //       sql.push(`select count(*), mean(value) from device_frmpayload_data_Motion where time > now() - 15m`);
+  //       sql.push(`select count(*), mean(value) from device_frmpayload_data_Temperature where time > now() - 15m`);
+  //       var sensors = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "กำลังถูกใช้งาน" };
+  //       var Room_sensor = { datetime: "",Room_number: "IT-109", status: "กำลังถูกใช้งาน", temperature: 0, motion: 0, luminance: 0, people: 0 };
+  //       var infor_sensor = { datetime: "", temperature: 0, motion: 0, luminance: 0, label: "" };
+  //       var _id = "615d7097ac4f9e196cce8807";
+
+  //       var today = moment(new Date()).format('DD-MM-YYYY H:mm');
+  //       sensors.datetime = today;
+  //       Room_sensor.datetime = today;
+  //       infor_sensor.datetime = today;
+  //       for (let i = 0; i < sql.length; i++) {
+  //           let result = await influx.query(sql[i]);
+  //           if (result.length == 1) {
+  //               if (i == 0) {
+  //                   sensors.luminance = result[0].mean;
+  //                   Room_sensor.luminance = result[0].mean;
+  //                   infor_sensor.luminance = result[0].mean;
+  //               }
+  //               else if (i == 1) {
+  //                   sensors.motion = result[0].mean;
+  //                   Room_sensor.motion = result[0].mean;
+  //                   infor_sensor.motion = result[0].mean;
+  //               }
+  //               else if (i == 2) {
+  //                   sensors.temperature = result[0].mean;
+  //                   Room_sensor.temperature = result[0].mean;
+  //                   infor_sensor.temperature = result[0].mean;
+  //               }
+  //           }
+  //       }
+  //       Static.create(
+  //           sensors
+  //       )
+  //       console.log(infor_sensor);
+  //       information.create(
+  //           infor_sensor
+  //       )
+  //       var options = {
+  //           host: '203.154.83.62',
+  //           port: 20000,
+  //           path: '/prediction',
+  //           method: 'GET'
+  //         };
+
+  //         const req =  http.request(options,(res)=> {
+  //           res.setEncoding('utf8');
+  //           res.on('data', (chunk) =>{
+
+  //               // console.log(`BODY: ${chunk.status}`);
+  //               console.log("BODY:",chunk);
+  //               console.log("status: ",JSON.parse(chunk)["status"]);
+
+  //           try {
+  //               console.log(JSON.parse(chunk)["status"]);
+  //               Room_sensor.datetime = moment(new Date()).format('DD-MM-YYYY H:mm');
+  //               if(JSON.parse(chunk)["status"] == 0){
+
+  //                   Room_sensor.status = "ว่าง"                                    
+  //               }else{
+
+  //                   Room_sensor.status = "กำลังถูกใช้งาน"
+  //               }
+  //               console.log(Room_sensor.status);
+  //               console.log(Room_sensor.datetime);
+  //               Room.findByIdAndUpdate(
+  //                   _id,
+  //                   Room_sensor,
+  //                   { new: true },
+  //                   (err, data) => {
+  //                       if (err != null) {
+  //                           console.log(err);
+  //                       }
+  //                   }
+  //               )
+
+  //           }catch(error){
+  //               console.log(error);
+  //           }     
+  //           });
+  //           res.on('end', () => {
+  //               console.log('No more data in response.');
+  //             });
+  //         });
+  //         req.on('error', (e) => {
+  //           console.error(`problem with request: ${e.message}`);
+  //         });
+  //         response.send({ title: 'End' });
+  //         req.end();
+});
 
 module.exports = routes;

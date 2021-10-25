@@ -6,7 +6,7 @@ const product = new Schema({
     temperature:{ type : Number},
     motion:{ type : Number},
     luminance: { type : Number},
-    label:{ type : String},
+    label:{ type : String}
    
 },
 {collection: 'static'}
