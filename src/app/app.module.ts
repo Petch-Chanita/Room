@@ -33,6 +33,7 @@ import { ButtonModule } from 'primeng/button';
 import { RoomValidatorDirective } from './shared/room-validator.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { HeaderAdminComponent } from './component/header-admin/header-admin.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     StaticAdminComponent,
     CreateModelComponent,
     RoomValidatorDirective,
+    HeaderAdminComponent,
   ],
   imports: [
     BrowserModule,
